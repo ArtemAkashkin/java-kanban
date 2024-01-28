@@ -46,17 +46,19 @@ public class Main {
         taskManager.updateTask(task1);
         taskManager.getTasks();
 
-        System.out.println(taskManager.giveSubTasks(epic));
+        System.out.println(taskManager.giveSubTasks(epic1));
 
         System.out.println("   ");
 
         subTask1.setStatus("DONE");
-        subTask1.setName("Аналитика фронта");
+        subTask1.setName("Аналитика");
         subTask.setStatus("DONE");
         taskManager.updateSubTask(subTask1);
         taskManager.updateSubTask(subTask);
         System.out.println(taskManager.getSubtasks());
         System.out.println(epic.getStatus());
+
+
 
     }
 }

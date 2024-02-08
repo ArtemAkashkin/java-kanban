@@ -1,9 +1,9 @@
 import model.Epic;
 import model.SubTask;
 import model.Task;
+import service.InMemoryTaskManager;
 import service.TaskManager;
 
-import java.util.HashMap;
 import java.util.Scanner;
 
 public class Main {
@@ -11,7 +11,7 @@ public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        TaskManager taskManager = new TaskManager();
+        TaskManager taskManager = new InMemoryTaskManager();
 
         Task task = new Task("Архитектура", "Создать план архитектуры проекта", "NEW");
         Task task1 = new Task("Бэк", "Написать код на бэк", "NEW");
@@ -36,12 +36,11 @@ public class Main {
         taskManager.create(subTask2);
         System.out.println("Список сабтасков: " + taskManager.getSubtasks());
 
-
         System.out.println("Имя задачи под введенным идентификатором: " + taskManager.getEpic(4));
         System.out.println("Имя задачи под введенным идентификатором: " + taskManager.getEpic(3));
         System.out.println("Имя задачи под введенным идентификатором: " + taskManager.getSubTask(5));
         System.out.println("Имя задачи под введенным идентификатором: " + taskManager.getTask(2));
-//
+
         task1.setName("ООП");
         taskManager.updateTask(task1);
         taskManager.getTasks();
@@ -57,8 +56,5 @@ public class Main {
         taskManager.updateSubTask(subTask);
         System.out.println(taskManager.getSubtasks());
         System.out.println(epic.getStatus());
-
-
-
     }
 }

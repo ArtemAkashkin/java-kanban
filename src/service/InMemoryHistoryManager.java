@@ -7,7 +7,7 @@ import java.util.List;
 
 public class InMemoryHistoryManager implements HistoryManager {
     public LinkedList<Task> historyStorage;
-    final int maxAmountOfStorage = 10;
+    private final int maxAmountOfStorage = 10;
 
     public InMemoryHistoryManager() {
         this.historyStorage = new LinkedList<>();

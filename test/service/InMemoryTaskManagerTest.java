@@ -53,6 +53,6 @@ class InMemoryTaskManagerTest {
         manager.create(task);
         manager.create(task1);
         task1.setId(1);
-        assertEquals(false, manager.updateTask(task1), "Элемент нельзя добавить");
+        assertEquals(true, manager.updateTask(task1), "Элемент нельзя добавить, так как он равен нулю");
     }
 }

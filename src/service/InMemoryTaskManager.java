@@ -15,7 +15,6 @@ public class InMemoryTaskManager implements TaskManager {
     private Map<Integer, Epic> epics;
     private Map<Integer, SubTask> subtasks;
     private HistoryManager historyManager;
-    private Managers managers;
 
     private int seq = 0;
 
@@ -114,44 +113,38 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public boolean updateTask(Task task) {
-        boolean a = true;
-        if (tasks.containsKey(task.getId())) {
-            System.out.println("Элемент с этим индексом уже существует, поменяйте на другой");
-            a = false;
-            return a;
+        Task newTask = tasks.get(task.getId());
+        if (newTask == null) {
+            return false;
         }
         tasks.put(task.getId(), task);
-        return a;
+        return true;
     }
 
     @Override
     public boolean updateEpic(Epic epic) {
-        boolean a = true;
-        if (epics.containsKey(epic.getId())) {
-            System.out.println("Элемент с этим индексом уже существует, поменяйте на другой");
-            a = false;
-            return a;
+        Epic newEpic = epics.get(epic.getId());
+        if (newEpic == null) {
+            return false;
         }
         Epic saved = epics.get(epic.getId());
         saved.setName(epic.getName());
         saved.setDescription(epic.getDescription());
-        return a;
+        return true;
     }
 
     @Override
     public boolean updateSubTask(SubTask subTask) {
-        boolean a = true;
-        if (subtasks.containsKey(subTask.getId())) {
-            System.out.println("Элемент с этим индексом уже существует, поменяйте на другой");
-            a = false;
-            return a;
+        SubTask newSubTask = subtasks.get(subTask.getId());
+        if (newSubTask == null) {
+            return false;
         }
         SubTask savedSubTask = subtasks.get(subTask.getId());
         savedSubTask.setName(subTask.getName());
         savedSubTask.setDescription(subTask.getDescription());
         savedSubTask.setStatus(subTask.getStatus());
         calculateStatus(epics.get(subTask.getIdEpic()));
-        return a;
+        return true;
     }
 
     @Override
@@ -204,11 +197,11 @@ public class InMemoryTaskManager implements TaskManager {
         Epic savedEpic = epics.get(subTask.getIdEpic());
         savedEpic.getIdSubTasks().remove(subTask.getId());
         subtasks.remove(subTask.getId());
+        calculateStatus(epics.get(subTask.getIdEpic()));
     }
 
     @Override
     public List<Task> getHistory() {
         return historyManager.getHistory();
     }
-
 }

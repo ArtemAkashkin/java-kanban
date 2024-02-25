@@ -24,6 +24,6 @@ class ManagersTest {
     void getDefaultHistory() {
         HistoryManager manager = managers.getDefaultHistory();
         ArrayList<Task> historyStorage = new ArrayList<>();
-        assertEquals(historyStorage, manager.getHistory(), "Мэпы должны быть равны и пусты");
+        assertEquals(historyStorage, manager.getTasks(), "Мэпы должны быть равны и пусты");
     }
 }

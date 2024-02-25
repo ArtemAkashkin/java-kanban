@@ -152,11 +152,11 @@ public class InMemoryTaskManager implements TaskManager {
         int a = 0;
         int b = 0;
         int c = 0;
-        for (int IdSubTask : epic.getIdSubTasks()) {
-            SubTask SavedSubTask = subtasks.get(IdSubTask);
-            if (SavedSubTask.getStatus().equals("NEW")) {
+        for (int idSubTask : epic.getIdSubTasks()) {
+            SubTask savedSubTask = subtasks.get(idSubTask);
+            if (savedSubTask.getStatus().equals("NEW")) {
                 a += 1;
-            } else if (SavedSubTask.getStatus().equals("IN PROGRESS")) {
+            } else if (savedSubTask.getStatus().equals("IN PROGRESS")) {
                 b += 1;
             } else {
                 c += 1;

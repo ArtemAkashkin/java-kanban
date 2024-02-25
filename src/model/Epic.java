@@ -1,7 +1,6 @@
 package model;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 public class Epic extends Task {
     private ArrayList<Integer> idSubTasks = new ArrayList<>();
@@ -17,7 +16,6 @@ public class Epic extends Task {
     public void setIdSubTasks(ArrayList<Integer> idSubTasks) {
         this.idSubTasks = idSubTasks;
     }
-
 
 
     public void deleteIdSubTask() {

@@ -2,12 +2,15 @@ package service;
 
 import model.Task;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 
 public class InMemoryHistoryManager implements HistoryManager {
-//    public LinkedList<Task> historyStorage;
+    //    public LinkedList<Task> historyStorage;
     private HashMap<Integer, Node> historyMap = new HashMap<>();
-    private List<Node> nodeListTasks; 
+    private List<Node> nodeListTasks;
 
 
     private Node first;

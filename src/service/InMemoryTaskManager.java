@@ -164,7 +164,7 @@ public class InMemoryTaskManager implements TaskManager {
         }
         if (a == epic.getIdSubTasks().size()) {
             epic.setStatus("NEW");
-        } else  if (c == epic.getIdSubTasks().size()) {
+        } else if (c == epic.getIdSubTasks().size()) {
             epic.setStatus("DONE");
         } else if (b >= 1) {
             epic.setStatus("IN PROGRESS");

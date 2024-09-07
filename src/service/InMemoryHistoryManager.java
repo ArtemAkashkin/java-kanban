@@ -2,14 +2,10 @@ package service;
 
 import model.Task;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public class InMemoryHistoryManager implements HistoryManager {
-    //    public LinkedList<Task> historyStorage;
-    private HashMap<Integer, Node> historyMap = new HashMap<>();
+    private Map<Integer, Node> historyMap = new HashMap<>();
     private List<Node> nodeListTasks;
 
 
@@ -17,28 +13,41 @@ public class InMemoryHistoryManager implements HistoryManager {
 
     private Node last;
 
-    public void linkLast(Task lastNode) {
+    public void linkLast(Task newTask) {
         Node l = last;
-        Node newNode = new Node(l, lastNode, null);
+        Node newNode = new Node(l, newTask, null);
         last = newNode;
         if (l == null)
             first = newNode;
         else
             l.next = newNode;
-        nodeListTasks.add(newNode);
+//        nodeListTasks.add(newNode);
     }
 
-    public ArrayList<Task> getTasks() {
-        ArrayList<Task> getTasks = new ArrayList<>();
-        for (Node task : nodeListTasks) {
-            getTasks.add(task.task);
+    public List<Task> getTasks() {
+        List<Task> getTasks = new ArrayList<>();
+        Node currentNode = first;
+        if (currentNode != null) {
+            getTasks.add(currentNode.task);
+            while (currentNode.next != null) {
+                getTasks.add(currentNode.next.task);
+                currentNode = currentNode.next;
+            }
         }
         return getTasks;
     }
 
     @Override
     public void removeNode(Node node) {
-        nodeListTasks.remove(node);
+        if (node.prev == null) {
+            node.next.prev = null;
+        } else if (node.next == null) {
+            node.prev.next = null;
+            last = node.prev;
+        } else {
+            node.next.prev = null;
+            node.prev.next = null;
+        }
     }
 
 

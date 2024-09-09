@@ -6,10 +6,9 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class InMemoryHistoryManagerTest {
-    Managers managers = new Managers();
     TaskManager manager = Managers.getDefaultTaskManager();
     Task task = new Task("Архитектура", "Создать план архитектуры проекта", "NEW");
     Epic epic = new Epic("name", "NEW", "desc");

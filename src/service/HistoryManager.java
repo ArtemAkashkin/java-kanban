@@ -7,7 +7,9 @@ import java.util.List;
 public interface HistoryManager {
     void add(Task task);
 
-    void removeNode(Node node);
+    private void removeNode(Node node) {
+
+    }
 
     void remove(int id);
 

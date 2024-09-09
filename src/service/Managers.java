@@ -1,7 +1,7 @@
 package service;
 
 public class Managers {
-    Managers() {
+    private Managers() {
     }
 
     public static TaskManager getDefaultTaskManager() {

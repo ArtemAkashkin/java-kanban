@@ -1,28 +1,25 @@
 package service;
 
 import model.Task;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ManagersTest {
-    Managers managers = new Managers();
+
 
     @Test
     void getDefaultTaskManager() {
-        TaskManager manager = managers.getDefaultTaskManager();
+        TaskManager manager = Managers.getDefaultTaskManager();
         ArrayList<Task> listOfTasks  = new ArrayList<>();
         assertEquals(listOfTasks, manager.getTasks(), "Мэпы должны быть равны и пусты");
     }
 
     @Test
     void getDefaultHistory() {
-        HistoryManager manager = managers.getDefaultHistory();
+        HistoryManager manager = Managers.getDefaultHistory();
         ArrayList<Task> historyStorage = new ArrayList<>();
         assertEquals(historyStorage, manager.getTasks(), "Мэпы должны быть равны и пусты");
     }

@@ -15,16 +15,6 @@ public class InMemoryHistoryManager implements HistoryManager {
 
     private Node last;
 
-    public void linkLast(Task newTask) {
-        Node l = last;
-        Node newNode = new Node(l, newTask, null);
-        last = newNode;
-        if (l == null)
-            first = newNode;
-        else
-            l.setNext(newNode);
-    }
-
     public List<Task> getTasks() {
         List<Task> getTasks = new LinkedList<>();
         Node currentNode = first;
@@ -36,10 +26,41 @@ public class InMemoryHistoryManager implements HistoryManager {
     }
 
 
+    @Override
+    public void add(Task task) {
+        removeNode(historyMap.get(task.getId()));
+        if (task != null) {
+            linkLast(task);
+        }
+        historyMap.put(task.getId(), last);
+    }
+
+    @Override
+    public void remove(int id) {
+        removeNode(historyMap.get(id));
+        historyMap.remove(id);
+    }
+
+    private void linkLast(Task newTask) {
+        Node l = last;
+        Node newNode = new Node(l, newTask, null);
+        last = newNode;
+        if (l == null)
+            first = newNode;
+        else
+            l.setNext(newNode);
+    }
+
     private void removeNode(Node node) {
+        if (node == null) {
+            return;
+        }
         Node previous = node.getPrev();
         Node next = node.getNext();
-        if (previous == null) {
+        if (previous == null && next == null) {
+            next.setPrev(null);
+            previous.setNext(null);
+        } else if (previous == null) {
             next.setPrev(null);
             first = next;
         } else if (next == null) {
@@ -50,19 +71,4 @@ public class InMemoryHistoryManager implements HistoryManager {
             previous.setNext(null);
         }
     }
-
-    @Override
-    public void add(Task task) {
-        if (historyMap.containsKey(task.getId())) {
-            removeNode(historyMap.get(task.getId()));
-        }
-        linkLast(task);
-        historyMap.put(task.getId(), last);
-    }
-
-    @Override
-    public void remove(int id) {
-
-    }
-
 }

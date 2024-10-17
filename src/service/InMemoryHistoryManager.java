@@ -2,27 +2,72 @@ package service;
 
 import model.Task;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 public class InMemoryHistoryManager implements HistoryManager {
-    public LinkedList<Task> historyStorage;
-    private final int maxAmountOfStorage = 10;
+    private Map<Integer, Node> historyMap = new HashMap<>();
 
-    public InMemoryHistoryManager() {
-        this.historyStorage = new LinkedList<>();
+
+    private Node first;
+
+    private Node last;
+
+    public List<Task> getTasks() {
+        List<Task> getTasks = new LinkedList<>();
+        Node currentNode = first;
+        while (currentNode != null) {
+            getTasks.add(currentNode.getTask());
+            currentNode = currentNode.getNext();
+        }
+        return getTasks;
     }
+
 
     @Override
     public void add(Task task) {
-        if (historyStorage.size() >= maxAmountOfStorage) {
-            historyStorage.remove(0);
+        if (task != null) {
+            linkLast(task);
+            removeNode(historyMap.get(task.getId()));
+            historyMap.put(task.getId(), last);
         }
-        historyStorage.add(task);
     }
 
     @Override
-    public LinkedList<Task> getHistory() {
-        return historyStorage;
+    public void remove(int id) {
+        removeNode(historyMap.remove(id));
+    }
+
+    private void linkLast(Task newTask) {
+        Node l = last;
+        Node newNode = new Node(l, newTask, null);
+        last = newNode;
+        if (l == null)
+            first = newNode;
+        else
+            l.setNext(newNode);
+    }
+
+    private void removeNode(Node node) {
+        if (node == null) {
+            return;
+        }
+        Node previous = node.getPrev();
+        Node next = node.getNext();
+        if (previous == null && next == null) {
+            first = null;
+            last = null;
+        } else if (previous == null) {
+            next.setPrev(null);
+            first = next;
+        } else if (next == null) {
+            previous.setNext(null);
+            last = previous;
+        } else {
+            next.setPrev(previous);
+            previous.setNext(next);
+        }
     }
 }

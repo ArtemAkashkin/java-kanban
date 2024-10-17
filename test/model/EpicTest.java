@@ -1,18 +1,15 @@
 package model;
 
 import org.junit.jupiter.api.Test;
-import service.InMemoryTaskManager;
-import service.Managers;
-import service.TaskManager;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class EpicTest {
 
     @Test
     public void shouldBeEqualEpic() {
-        Epic epic = new Epic("name", "NEW", "desc");
-        Epic epic1 = new Epic("name", "NEW", "desc");
+        Epic epic = new Epic("name", "desc", Status.NEW);
+        Epic epic1 = new Epic("name", "desc", Status.NEW);
         assertEqualsEpicks(epic, epic1, "Эпики должны совпадать");
 
     }
@@ -24,11 +21,11 @@ class EpicTest {
 
 /*    @Test
     public void shouldNotAddThemselfEpic() {
-        Epic epic = new Epic("name", "desc", "NEW");
+        Epic epic = new Epic("name", "desc", Status.NEW);
         TaskManager taskManager = new InMemoryTaskManager();
         Managers managers = new Managers();
         TaskManager inMemoryTaskManager = managers.getDefaultTaskManager();
-        SubTask epic1 = new SubTask("name", "desc", "NEW");
+        SubTask epic1 = new SubTask("name", "desc", Status.NEW);
 
         inMemoryTaskManager.create(epic);
         inMemoryTaskManager.create(SubTask epic);

@@ -1,6 +1,7 @@
 package service;
 
 import model.Epic;
+import model.Status;
 import model.SubTask;
 import model.Task;
 
@@ -62,9 +63,7 @@ public class InMemoryTaskManager implements TaskManager {
     public void clearAllEpics() {
         for (Epic epic : epics.values()) {
             epic.deleteIdSubTask();
-        }
-        for (int epicId : epics.keySet()) {
-            historyManager.remove(epicId);
+            historyManager.remove(epic.getId());
         }
         for (int subTaskId : subtasks.keySet()) {
             historyManager.remove(subTaskId);
@@ -77,7 +76,7 @@ public class InMemoryTaskManager implements TaskManager {
     public void clearAllSubTasks() {
         for (Epic epic : epics.values()) {
             epic.deleteIdSubTask();
-            epic.setStatus("NEW");
+            epic.setStatus(Status.NEW);
         }
         for (int subTaskId : subtasks.keySet()) {
             historyManager.remove(subTaskId);
@@ -166,20 +165,20 @@ public class InMemoryTaskManager implements TaskManager {
         int c = 0;
         for (int idSubTask : epic.getIdSubTasks()) {
             SubTask savedSubTask = subtasks.get(idSubTask);
-            if (savedSubTask.getStatus().equals("NEW")) {
+            if (savedSubTask.getStatus().equals(Status.NEW)) {
                 a += 1;
-            } else if (savedSubTask.getStatus().equals("IN PROGRESS")) {
+            } else if (savedSubTask.getStatus().equals(Status.IN_PROGRESS)) {
                 b += 1;
             } else {
                 c += 1;
             }
         }
         if (a == epic.getIdSubTasks().size()) {
-            epic.setStatus("NEW");
+            epic.setStatus(Status.NEW);
         } else if (c == epic.getIdSubTasks().size()) {
-            epic.setStatus("DONE");
+            epic.setStatus(Status.DONE);
         } else if (b >= 1) {
-            epic.setStatus("IN PROGRESS");
+            epic.setStatus(Status.IN_PROGRESS);
         }
     }
 
@@ -201,12 +200,13 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public void delete(Epic epic) {
-        epic.deleteIdSubTask();
-        epics.remove(epic.getId());
         historyManager.remove(epic.getId());
         for (int idSubTask : epic.getIdSubTasks()) {
             historyManager.remove(idSubTask);
+            subtasks.remove(idSubTask);
         }
+        epic.deleteIdSubTask();
+        epics.remove(epic.getId());
     }
 
     @Override

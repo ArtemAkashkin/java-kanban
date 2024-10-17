@@ -1,4 +1,5 @@
 import model.Epic;
+import model.Status;
 import model.SubTask;
 import model.Task;
 import service.InMemoryTaskManager;
@@ -13,10 +14,10 @@ public class Main {
 
         TaskManager taskManager = new InMemoryTaskManager();
 
-        Task task = new Task("Архитектура", "Создать план архитектуры проекта", "NEW");
-        Task task1 = new Task("Бэк", "Написать код на бэк", "NEW");
-        Epic epic = new Epic("Фронт", "написать код на фронт", "NEW");
-        Epic epic1 = new Epic("Фронт 2", "написать код на фронт2", "NEW");
+        Task task = new Task("Архитектура", "Создать план архитектуры проекта", Status.NEW);
+        Task task1 = new Task("Бэк", "Написать код на бэк", Status.NEW);
+        Epic epic = new Epic("Фронт", "написать код на фронт", Status.NEW);
+        Epic epic1 = new Epic("Фронт 2", "написать код на фронт2", Status.NEW);
 
 
         taskManager.create(task);
@@ -27,9 +28,9 @@ public class Main {
         taskManager.create(epic1);
         System.out.println("Список епиков: " + taskManager.getEpics());
 
-        SubTask subTask = new SubTask("Сделать стили", "разметка и стили", "NEW", 3);
-        SubTask subTask1 = new SubTask("Разобрать с бутстрапом", "изучить документацию", "NEW", 3);
-        SubTask subTask2 = new SubTask("Сделать разметку", "прописать первую страницу", "NEW", 4);
+        SubTask subTask = new SubTask("Сделать стили", "разметка и стили", Status.NEW, 3);
+        SubTask subTask1 = new SubTask("Разобрать с бутстрапом", "изучить документацию", Status.NEW, 3);
+        SubTask subTask2 = new SubTask("Сделать разметку", "прописать первую страницу", Status.NEW, 4);
 
         taskManager.create(subTask1);
         taskManager.create(subTask);
@@ -49,9 +50,9 @@ public class Main {
 
         System.out.println("   ");
 
-        subTask1.setStatus("DONE");
+        subTask1.setStatus(Status.DONE);
         subTask1.setName("Аналитика");
-        subTask.setStatus("DONE");
+        subTask.setStatus(Status.DONE);
         taskManager.updateSubTask(subTask1);
         taskManager.updateSubTask(subTask);
         System.out.println(taskManager.getSubtasks());

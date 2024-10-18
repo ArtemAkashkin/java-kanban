@@ -2,7 +2,7 @@ import model.Epic;
 import model.Status;
 import model.SubTask;
 import model.Task;
-import service.InMemoryTaskManager;
+import service.Managers;
 import service.TaskManager;
 
 import java.util.Scanner;
@@ -12,7 +12,7 @@ public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        TaskManager taskManager = new InMemoryTaskManager();
+        TaskManager taskManager = Managers.getDefaultTaskManager();
 
         Task task = new Task("Архитектура", "Создать план архитектуры проекта", Status.NEW);
         Task task1 = new Task("Бэк", "Написать код на бэк", Status.NEW);

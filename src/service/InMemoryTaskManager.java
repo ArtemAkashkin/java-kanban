@@ -23,6 +23,12 @@ public class InMemoryTaskManager implements TaskManager {
         return ++seq;
     }
 
+    protected void setId(Integer id) {
+        seq = id;
+    }
+
+
+
     public InMemoryTaskManager() {
         this.historyManager = Managers.getDefaultHistory();
         this.tasks = new HashMap<>();

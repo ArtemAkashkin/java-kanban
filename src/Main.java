@@ -2,9 +2,11 @@ import model.Epic;
 import model.Status;
 import model.SubTask;
 import model.Task;
+import service.FileBackedTaskManager;
 import service.Managers;
 import service.TaskManager;
 
+import java.io.File;
 import java.util.Scanner;
 
 public class Main {
@@ -57,5 +59,16 @@ public class Main {
         taskManager.updateSubTask(subTask);
         System.out.println(taskManager.getSubtasks());
         System.out.println(epic.getStatus());
+
+        FileBackedTaskManager taskManager1 = FileBackedTaskManager.loadFromFile(new File("Artem.csv"));
+        System.out.println(taskManager.getTasks());
+        System.out.println(taskManager.getEpics());
+        System.out.println(taskManager.getSubtasks());
+        System.out.println(taskManager1.getTasks());
+        System.out.println(taskManager1.getEpics());
+        System.out.println(taskManager1.getSubtasks());
+
+        taskManager1.create(new Task("Тест", "Тест 2", Status.NEW));
+        System.out.println(taskManager1.getTasks());
     }
 }

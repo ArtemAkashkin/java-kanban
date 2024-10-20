@@ -12,16 +12,22 @@ import java.util.Map;
 
 public class InMemoryTaskManager implements TaskManager {
 
-    private Map<Integer, Task> tasks;
-    private Map<Integer, Epic> epics;
-    private Map<Integer, SubTask> subtasks;
-    private HistoryManager historyManager;
+    protected Map<Integer, Task> tasks;
+    protected Map<Integer, Epic> epics;
+    protected Map<Integer, SubTask> subtasks;
+    protected HistoryManager historyManager;
 
     private int seq = 0;
 
     private int generateId() {
         return ++seq;
     }
+
+    protected void setId(Integer id) {
+        seq = id;
+    }
+
+
 
     public InMemoryTaskManager() {
         this.historyManager = Managers.getDefaultHistory();
@@ -53,9 +59,6 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public void clearAllTasks() {
-        for (int taskId : tasks.keySet()) {
-            historyManager.remove(taskId);
-        }
         tasks.clear();
     }
 

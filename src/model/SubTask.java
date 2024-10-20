@@ -3,10 +3,15 @@ package model;
 import java.util.Objects;
 
 public class SubTask extends Task {
-    private int idEpic;
+    private Integer idEpic;
 
     public SubTask(String name, String description, Status status, int idEpic) {
         super(name, description, status);
+        this.idEpic = idEpic;
+    }
+
+    public SubTask(int id, String name, String description, Status status, int idEpic) {
+        super(id, name, description, status);
         this.idEpic = idEpic;
     }
 
@@ -14,7 +19,8 @@ public class SubTask extends Task {
         super(name, description, status);
     }
 
-    public int getIdEpic() {
+    @Override
+    public Integer getIdEpic() {
         return idEpic;
     }
 
@@ -22,6 +28,10 @@ public class SubTask extends Task {
         this.idEpic = idEpic;
     }
 
+    @Override
+    public TaskType getTaskType() {
+        return TaskType.SUBTASK;
+    }
 
     @Override
     public int hashCode() {

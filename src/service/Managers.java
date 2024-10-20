@@ -5,7 +5,7 @@ public class Managers {
     }
 
     public static TaskManager getDefaultTaskManager() {
-        return new InMemoryTaskManager();
+        return new FileBackedTaskManager("Artem.csv");
     }
 
     public static HistoryManager getDefaultHistory() {
